@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NordPass — Black Friday Deal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0A0D0C;
+    --surface: #121715;
+    --surface-2: #171D1A;
+    --line: #223028;
+    --mint: #3FEBB0;
+    --mint-dim: #1F6B52;
+    --mint-glow: rgba(63,235,176,0.18);
+    --text: #EDF2EF;
+    --muted: #8FA39A;
+    --amber: #FFB238;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Manrope', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .mono{font-family:'JetBrains Mono', monospace;}
+
+  /* faint grid texture in bg */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity:0.35;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 70%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+
+  /* NAV */
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:26px 0;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-mark{
+    width:30px; height:30px; border-radius:8px;
+    background:linear-gradient(145deg, var(--mint), var(--mint-dim));
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .brand-mark svg{width:16px; height:16px;}
+  .brand-name{font-weight:800; font-size:17px; letter-spacing:-0.01em;}
+  .brand-sub{font-size:12px; color:var(--muted); margin-top:1px;}
+
+  /* HERO */
+  .hero{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:56px;
+    align-items:center;
+    padding:56px 0 80px;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px; letter-spacing:0.06em;
+    color:var(--amber);
+    background:rgba(255,178,56,0.08);
+    border:1px solid rgba(255,178,56,0.25);
+    padding:6px 12px; border-radius:100px;
+    margin-bottom:22px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--amber); animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.35;}}
+
+  h1{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size:clamp(32px, 4.4vw, 54px);
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    margin-bottom:22px;
+  }
+  h1 .crack{
+    color:var(--muted);
+    text-decoration:line-through;
+    text-decoration-color:rgba(143,163,154,0.5);
+  }
+  h1 .strike-repl{color:var(--mint);}
+
+  .sub{
+    font-size:17px;
+    line-height:1.65;
+    color:var(--muted);
+    max-width:480px;
+    margin-bottom:34px;
+  }
+
+  .cta-row{display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'Manrope', sans-serif;
+    font-weight:700; font-size:15.5px;
+    padding:15px 26px;
+    border-radius:10px;
+    text-decoration:none;
+    cursor:pointer;
+    border:none;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{
+    background:var(--mint);
+    color:#04120C;
+    box-shadow:0 0 0 0 rgba(63,235,176,0.5);
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 30px -8px var(--mint-glow);}
+  .btn-ghost{
+    background:transparent;
+    color:var(--text);
+    border:1px solid var(--line);
+  }
+  .btn-ghost:hover{border-color:var(--mint-dim); background:var(--surface-2);}
+  .fine{font-size:12.5px; color:var(--muted); margin-top:14px;}
+
+  /* SIGNATURE: deal-strength meter */
+  .meter-card{
+    background:linear-gradient(180deg, var(--surface), var(--surface-2));
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:32px;
+    position:relative;
+    overflow:hidden;
+  }
+  .meter-card::after{
+    content:"";
+    position:absolute; top:-40%; right:-30%;
+    width:280px; height:280px;
+    background:radial-gradient(circle, var(--mint-glow), transparent 70%);
+    pointer-events:none;
+  }
+  .meter-label{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px; color:var(--muted); letter-spacing:0.04em;
+    margin-bottom:10px;
+  }
+  .meter-track{
+    width:100%; height:14px;
+    background:#0D1310;
+    border:1px solid var(--line);
+    border-radius:100px;
+    overflow:hidden;
+    display:flex; gap:3px;
+    padding:3px;
+  }
+  .meter-seg{
+    flex:1; height:100%; border-radius:4px;
+    background:#1A211E;
+    transition:background 0.6s ease;
+  }
+  .meter-seg.on{background:var(--mint);}
+  .meter-tiers{
+    display:flex; justify-content:space-between;
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; color:var(--muted);
+    margin-top:8px;
+  }
+  .meter-tiers span.active{color:var(--mint); font-weight:700;}
+
+  .price-block{margin-top:30px; padding-top:26px; border-top:1px dashed var(--line);}
+  .price-row{display:flex; align-items:flex-end; gap:12px;}
+  .price-old{font-family:'JetBrains Mono', monospace; font-size:20px; color:var(--muted); text-decoration:line-through;}
+  .price-new{font-family:'JetBrains Mono', monospace; font-size:44px; font-weight:800; color:var(--mint); line-height:1;}
+  .price-unit{font-size:13px; color:var(--muted); margin-bottom:6px;}
+  .save-tag{
+    display:inline-block; margin-top:12px;
+    font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:700;
+    color:#04120C; background:var(--mint);
+    padding:4px 10px; border-radius:6px;
+  }
+
+  /* FEATURES */
+  .features{
+    padding:10px 0 80px;
+    border-top:1px solid var(--line);
+    padding-top:70px;
+  }
+  .section-tag{
+    font-family:'JetBrains Mono', monospace; font-size:12.5px;
+    color:var(--mint); letter-spacing:0.08em; text-transform:uppercase;
+    margin-bottom:12px;
+  }
+  .features h2{
+    font-size:clamp(24px, 3vw, 34px);
+    font-weight:800; letter-spacing:-0.01em;
+    max-width:560px; margin-bottom:48px;
+  }
+  .feat-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+  }
+  .feat{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .feat:hover{border-color:var(--mint-dim); transform:translateY(-3px);}
+  .feat-icon{
+    width:38px; height:38px; border-radius:9px;
+    background:var(--mint-glow);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px;
+  }
+  .feat-icon svg{width:19px; height:19px; stroke:var(--mint);}
+  .feat h3{font-size:16.5px; font-weight:700; margin-bottom:8px;}
+  .feat p{font-size:14.5px; color:var(--muted); line-height:1.6;}
+
+  /* FOOTER CTA */
+  .final-cta{
+    text-align:center;
+    padding:64px 28px 56px;
+    border-top:1px solid var(--line);
+    background:radial-gradient(ellipse 60% 100% at 50% 0%, var(--mint-glow), transparent 70%);
+  }
+  .final-cta h2{
+    font-family:'JetBrains Mono', monospace;
+    font-size:clamp(22px, 3vw, 32px);
+    margin-bottom:14px;
+  }
+  .final-cta p{color:var(--muted); margin-bottom:28px; font-size:15.5px;}
+
+  footer{
+    padding:28px; text-align:center;
+    color:var(--muted); font-size:12px;
+    border-top:1px solid var(--line);
+  }
+  footer a{color:var(--muted);}
+
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr; padding-top:20px;}
+    .feat-grid{grid-template-columns:1fr;}
+    .sub{max-width:100%;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .eyebrow .dot{animation:none;}
+    .meter-seg{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L4 6v6c0 5 3.4 8.7 8 10 4.6-1.3 8-5 8-10V6l-8-4z" fill="#04120C"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">NordPass</div>
+        <div class="brand-sub">Powered by NordVPN</div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>BLACK FRIDAY — PASSWORD MANAGER DEAL</div>
+      <h1>Stop reusing<br><span class="crack">"Fluffy2010!"</span><br><span class="strike-repl">everywhere.</span></h1>
+      <p class="sub">NordPass generates, stores, and autofills strong passwords across every device — so a breach on one site never becomes a breach on all of them.</p>
+      <div class="cta-row">
+        <a href="https://afflat3c1.com/trk/lnk/3BF8B185-C400-46C9-BA86-8558C9994629/?o=30698&c=918271&a=800075&k=F007E6573B8BF6F557C75600A767B5C9&l=35249" class="btn btn-primary" target="_blank" rel="noopener">
+          Get the deal →
+        </a>
+        <a href="#features" class="btn btn-ghost">See what's included</a>
+      </div>
+      <div class="fine">30-day money-back guarantee · Cancel anytime</div>
+    </div>
+
+    <div class="meter-card">
+      <div class="meter-label"><span>DEAL STRENGTH</span><span id="pct-label" class="mono">0%</span></div>
+      <div class="meter-track" id="meter-track"></div>
+      <div class="meter-tiers">
+        <span>weak</span><span>fair</span><span>strong</span><span id="tier-max">unbreakable</span>
+      </div>
+
+      <div class="price-block">
+        <div class="price-row">
+          <span class="price-old">$4.29</span>
+          <span class="price-new">$1.79</span>
+          <span class="price-unit">/ month</span>
+        </div>
+        <span class="save-tag">SAVE UP TO 58%</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="section-tag">What's included</div>
+    <h2>Everything you need to lock things down — nothing you have to think about.</h2>
+    <div class="feat-grid">
+      <div class="feat">
+        <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 2l7 4v6c0 5-3.1 8.4-7 10-3.9-1.6-7-5-7-10V6l7-4z"/></svg></div>
+        <h3>Password Health</h3>
+        <p>Flags weak, reused, and old passwords across every account, with one click to fix each one.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01M4.9 19h14.2c1.4 0 2.3-1.6 1.6-2.8L13.6 4.4c-.7-1.2-2.5-1.2-3.2 0L3.3 16.2c-.7 1.2.2 2.8 1.6 2.8z"/></svg></div>
+        <h3>Data Breach Scanner</h3>
+        <p>Checks your email addresses against known breaches and alerts you the moment one shows up.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 4h16v16H4z"/><path d="M4 6l8 6 8-6"/></svg></div>
+        <h3>Email Masking</h3>
+        <p>Sign up for anything with a masked address that forwards to your inbox — your real one stays private.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <h2 class="mono">One vault. Every device. One click in.</h2>
+    <p>Set it up once — sync passwords across desktop, mobile, and browser instantly.</p>
+    <a href="https://afflat3c1.com/trk/lnk/3BF8B185-C400-46C9-BA86-8558C9994629/?o=30698&c=918271&a=800075&k=F007E6573B8BF6F557C75600A767B5C9&l=35249" class="btn btn-primary" target="_blank" rel="noopener">
+      Get the Black Friday deal →
+    </a>
+  </section>
+</div>
+
+<footer>
+  This page contains an affiliate link — we may earn a commission if you subscribe through it, at no extra cost to you.
+</footer>
+
+<script>
+  // animate the deal-strength meter on load
+  const track = document.getElementById('meter-track');
+  const segCount = 20;
+  const targetPct = 92; // "unbreakable" tier for the discount strength
+  for(let i=0;i<segCount;i++){
+    const seg = document.createElement('div');
+    seg.className = 'meter-seg';
+    track.appendChild(seg);
+  }
+  const segs = track.querySelectorAll('.meter-seg');
+  const pctLabel = document.getElementById('pct-label');
+  let current = 0;
+  const targetSegs = Math.round((targetPct/100)*segCount);
+
+  function step(){
+    if(current <= targetPct){
+      pctLabel.textContent = current + '%';
+      const litSegs = Math.round((current/100)*segCount);
+      segs.forEach((s, i) => { if(i < litSegs) s.classList.add('on'); });
+      current += 2;
+      requestAnimationFrame(() => setTimeout(step, 16));
+    } else {
+      pctLabel.textContent = targetPct + '%';
+    }
+  }
+  requestAnimationFrame(() => setTimeout(step, 300));
+</script>
+
+</body>
+</html>
